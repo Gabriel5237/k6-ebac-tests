@@ -1,7 +1,13 @@
 import { group } from 'k6';
-import Login from '../request/login.request';
-import data from '../data/usuarios.json'
-import User from '../request/user.request';
+import Login from '../request/login.request.js';
+import User from '../request/user.request.js';
+
+const data = {
+  usuarioOk: {
+    user: 'admin',
+    pass: 'admin'
+  }
+}
 
 export const options = {
   stages: [
