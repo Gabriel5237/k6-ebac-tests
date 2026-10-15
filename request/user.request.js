@@ -1,14 +1,21 @@
-import { check } from "k6"
-import http from "k6/http"
-import Utils from "../utils/utils.js"
+
+import { check } from "k6";
+import http from "k6/http";
+import Utils from "../utils/utils.js";
 
 export default class User {
     list(token) {
-        let response = http.get(`${Utils.getBaseUrl()}/users`, {
+        const response = http.get(`${Utils.getBaseUrl()}/users`, {
             headers: {
-                Authorization: `Bearer ${token}`
+                "Authorization": `Bearer ${token}`,
+                "Accept": "application/json"
             }
-        })
-        check(response, { 'listagem deve retornar 200': r => r && r.status === 200 })
+        });
+
+        console.log(`Status da listagem: ${response.status}`);
+
+        check(response, {
+            "listagem deve retornar 200": (r) => r.status === 200
+        });
     }
 }
